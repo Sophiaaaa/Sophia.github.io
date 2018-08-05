@@ -1,0 +1,30 @@
+- 启动名称节点
+hadoop-daemon.sh start namenode
+检验：jps后有namenode
+
+- 启动数据节点
+hadoop-daemons.sh start datanode  slave
+检验：jps后有datanode
+
+- 启动第二名称节点
+hadoop-daemon.sh start secondarynamenode 
+
+- 查看端口50070
+netstat -anop | grep 500
+
+- 开启resourcemanager
+yarn-daemon.sh start resourcemanager
+检验：
+sbin/ 
+xcall.sh jps
+有resourcemanager
+
+- 开启nodemanager
+bin/yarn-daemons.sh start nodemanager 
+
+- 停止一个数据节点
+hadoop-daemon.sh stop datanode
+
+- 重新开启
+hadoop-daemon.sh start datanode
+
