@@ -2,10 +2,49 @@
 
 - [线程与进程](#线程与进程)
 - [使用线程池的好处](#使用线程池的好处)
+- [QA](#QA)
 <!-- /TOC -->
 
 ## 线程与进程
-- 
+- 进程是拥有资源和独立运行的最小单位，也是程序执行的最小单位。进程之间资源**互相独立，不共享**
+- **一个进程可以有多个线程**
+- 同一进程中的不同线程**栈内存独立**，但是共享方法区和堆内存
+- 创建线程 方法一：
+```java
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        // 方法体
+    }
+}
+```
+- 创建线程 方法二：
+```java
+class MyThread2 implements Runnable{
+    @Override
+    public void run() {
+        //方法体
+    }
+}
+
+
+```
+- 创建线程 方法三
+```java
+    public static void main(String[] args) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //方法体
+            }
+        });
+    }
+}
+```
+## QA
+### 线程中run()和start() 方法的区别？
+- start()方法的任务是开启一个新的栈空间，之后程序会自动给调用run()方法。run()方法如果直接使用，就不是多线程了。
+
 ## 使用线程池的好处
 
 - **池化技术相比大家已经屡见不鲜了，线程池、数据库连接池、Http 连接池等等都是对这个思想的应用。池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。**
