@@ -3,6 +3,7 @@
 - [线程与进程](#线程与进程)
 - [使用线程池的好处](#使用线程池的好处)
 - [线程安全问题](#线程安全问题)
+- [守护线程](#守护线程)
 - [QA](#QA)
 <!-- /TOC -->
 
@@ -94,6 +95,44 @@ class MyThread2 implements Runnable{
 ### 第三种方案：
 -  如果泵使用局部变量，对象也不能创建多个，这时只能选择synchronized线程同步机制了。
 
+## 守护线程
+- 一般守护线程就是一个死循环，所有的用户线程只要结束，守护线程自动结束
+- java语言分为两个大类：用户线程（如main主线程），守护线程
+```java
+public class ThreadTest14 {
+    public static void main(String[] args) {
+        Thread t = new BakDataThread();
+        t.setName("备份数据的线程");
+        // 启动线程之前，将线程备份类守护线程
+        t.setDaemon(true);
+        t.start();
+
+        // 主线程：主线程是用户线程
+        for (int i = 0; i < 10; i++){
+            System.out.printf(Thread.currentThread().getName() + "---->" + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class BakDataThread extends Thread {
+    public void run(){
+        int i = 0;
+        while (true){
+            System.out.printf(Thread.currentThread().getName() + "--->" + (++i));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
 
 ## QA
 ### 线程中run()和start() 方法的区别？
