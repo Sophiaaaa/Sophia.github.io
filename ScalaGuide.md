@@ -14,10 +14,10 @@
 ```scala
 object 变量定义 extends App { 
     /** 
-      * 定义变量使用var或者val关 键 字 
+      * 定义变量使用var或者val关键字 
       *
       * 语法: 
-      *  var | val 变量名称(: 数据类型) =变量值
+      *  var | val 变量名称(: 数据类型) = 变量值
       */
     // 使用val修饰的变量, 值不能为修改,相当于java中final修饰的变量 
     val name = "tom"
@@ -65,7 +65,7 @@ object ScalaPrint extends App {
 object ScalaIf extends App {
    //if语句的使用
     var faceValue=98
-    var res1=if (faceValue>90) "帅的一批" else "有点恼火"
+    var res1=if (faceValue>90) "帅" else "有点恼火"
     print(res1)
  
     //3>5 不成立，且代码没有else分支，那么res2应该输出什么呢？
