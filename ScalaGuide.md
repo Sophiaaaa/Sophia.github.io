@@ -154,5 +154,112 @@ object ScalaMethod extends App{
 }
 ```
 ## 1.10 函数的定义与调用
+方法一：
+```scala
+val f1 = (x: Int) => x*10
+```
+方法二
+```scala
+val f2:(Int, Int) => (x, y) => x*y
+```
+## 1.11 传值调用与传名调用
+```scala
+/*
+ *scala的
+ *      传名调用( call-by-name)
+ *      传值调用( call-by-value)
+ */
+object ScalaCallName  extends App{
+ 
+    def currentTime():Long={
+      System.nanoTime();
+    }
+    // 该方法的参数为一个无参的函数,并且函数的返回值为Long
+    def delayed(f: => Long): Unit ={
+        print(s"time=${f}")
+    }
+    
+    def delayed2(time: Long): Unit ={
+      print(s"time=${time}")
+    }
+ 
+    //调用方式一
+    delayed(currentTime())
+ 
+    // 调用方式二
+    // 等价于调用方式一，本质是先计算出参数的值，在带入方法
+    var time=currentTime()
+    delayed2(time)
+ 
+}
+```
+## 1.12 可变参数函数
+```scala
+/*
+ *scala的可变参数 
+ */
+object ScalaVarParams extends App{
+    //定义一个可变参数方法
+    def methodManyParams(params:Int*): Unit ={
+      for (i <- params){
+        print(i)
+      }
+    }
+   // 调用
+    methodManyParams(1,2,3,5)
+}
+```
+## 1.13 默认参数值函数
+```scala
 
-
+/*
+ *scala的默认参数
+ */
+object ScalaDefaultParams extends App{
+    //定义一个默认参数方法
+    def add(a:Int=1,b:Int=2): Int ={
+       a+b
+    }
+    // 等价于add(a=3,b=2)
+    add(3)
+    // 等价于add(a=4,b=5)
+    add(4,5)
+    // 等价于add(a=1,b=5)
+    add(b=5)
+}
+```
+## 1.14 高阶函数
+```scala
+/*
+ *scala的高阶函数
+ */
+object ScalaHM extends App{
+    //  高阶函数将其他函数作为参数
+    def apply(f:Int => Int,p:Int): Unit ={
+      print(f(p))
+    }
+ 
+    def fn1(a:Int): Int ={
+        a*a
+    }
+    apply(fn1,10)/*output：100*/
+}
+```
+## 1.15 部分参数应用函数
+```scala
+/*
+ *scala的部分参数
+ */
+object ScalaPartParams extends App{
+    //定义了一个求和函数
+    def sum(a:Int,b:Int): Int ={
+         a+b
+    }
+    // 调用sum函数的时候，传入了一个参数a=10，但是b为待定参数。
+    // sumWithTen形成了一个新的函数，参数个数为一个，类型为int型，
+    def sumWithTen:Int => Int=sum(10,_: Int)
+ 
+    //sumWithTen(1),本质是sum(10,1)
+    print(sumWithTen(1))
+}
+```
